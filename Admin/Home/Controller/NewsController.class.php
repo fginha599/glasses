@@ -204,20 +204,20 @@ class NewsController extends CommonController {
        //实例化
        $mod =M("news");
        //获取原图片地址
-            $pic = $mod->getFieldById($_GET['id'],'pic');
-       //判断是否有该文件
-            dump(unlink("/Public/Uploads/".$pic));die;
-            if(file_exists("./Public/Uploads/".$pic))
-            {     
-              
-              //删除图片
-                unlink("/Public/Uploads/".$pic);
-            }
+            
        //执行删除
-       // $m = $mod->delete($_GET['id']+0);
+       $m = $mod->delete($_GET['id']+0);
        //判断并输出对应的提示信息
        if($m>0){
+
+            $pic = $mod->getFieldById($_GET['id'],'pic');
+            //判断是否有该文件
             
+            if(file_exists("./Public/Uploads/".$pic))
+            {     
+                //删除图片
+                unlink("/Public/Uploads/".$pic);
+            }
 
            $this->success("删除成功！",U("News/index"));
        }else{
